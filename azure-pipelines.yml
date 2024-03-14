@@ -22,7 +22,8 @@ steps:
   inputs:
     awsCredentials: 'AWS dev account'
     regionName: 'eu-west-2'
-    awsCommand: 'aws sts get-caller-identity'
+    awsCommand: 'sts'
+    awsSubCommand: 'get-caller-identity'
     failOnStandardError: true
     
 - task: S3Upload@1
