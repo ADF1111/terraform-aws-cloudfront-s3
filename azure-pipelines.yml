@@ -18,13 +18,24 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
+- task: AWSCLI@1
+  inputs:
+    awsCredentials: 'AWS dev account'
+    regionName: 'eu-west-2'
+    awsCommand: 'aws sts get-caller-identity'
+    failOnStandardError: true
+    
 - task: S3Upload@1
   inputs:
     awsCredentials: 'AWS dev account'
     regionName: 'eu-west-2'
     bucketName: 'app1-dev-artifacts-215097317823'
-    sourceFolder: 'examples'
+    sourceFolder: 'examples/no-route53'
     globExpressions: '**'
     targetFolder: 'azuredevops'
+    keyManagement: 'awsManaged'
+    kmsMasterKeyId: 'arn:aws:kms:eu-west-2:215097317823:key/8cc58888-0f0f-45f3-8e2a-bb977f6b6a8f'
+    flattenFolders: true
     logRequest: true
     logResponse: true
+
